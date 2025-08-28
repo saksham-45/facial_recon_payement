@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+
+# Local DB
+facepay.db
+
+# IDE & OS
+.DS_Store
+.vscode/
+.idea/ 
