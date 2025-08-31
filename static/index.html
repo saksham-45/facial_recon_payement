@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FacePay - Webcam Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .webcam-section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .webcam-container {
+            flex: 1;
+            text-align: center;
+        }
+        .webcam-feed {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            border: 3px solid #fff;
+            border-radius: 10px;
+            background: #000;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .result {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success { background: rgba(46, 204, 113, 0.3); }
+        .error { background: rgba(231, 76, 60, 0.3); }
+        .info { background: rgba(52, 152, 219, 0.3); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎥 FacePay Webcam Integration</h1>
+        
+        <div class="webcam-section">
+            <div class="webcam-container">
+                <h3>Live Webcam Feed</h3>
+                <img id="webcamFeed" class="webcam-feed" src="/webcam/stream" alt="Webcam Feed">
+                <div class="controls">
+                    <button onclick="testCamera()">Test Camera</button>
+                    <button onclick="captureFace()">Capture & Detect Face</button>
+                </div>
+            </div>
+            
+            <div class="webcam-container">
+                <h3>Captured Image</h3>
+                <img id="capturedImage" class="webcam-feed" src="" alt="Captured Image" style="display: none;">
+                <div class="controls">
+                    <button onclick="clearImage()">Clear Image</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="result" class="result" style="display: none;">
+            <h3>Detection Results</h3>
+            <div id="resultContent"></div>
+        </div>
+        
+        <div id="status" class="status info">
+            Ready to test webcam integration
+        </div>
+    </div>
+
+    <script>
+        async function testCamera() {
+            try {
+                const response = await fetch('/webcam/test');
+                const data = await response.json();
+                
+                if (data.camera_working) {
+                    showStatus('Camera is working! ✅', 'success');
+                } else {
+                    showStatus('Camera not accessible ❌', 'error');
+                }
+            } catch (error) {
+                showStatus('Error testing camera: ' + error.message, 'error');
+            }
+        }
+
+        async function captureFace() {
+            try {
+                showStatus('Capturing image... 📸', 'info');
+                
+                const response = await fetch('/webcam/capture', {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Display captured image
+                    const capturedImg = document.getElementById('capturedImage');
+                    capturedImg.src = 'data:image/jpeg;base64,' + data.frame;
+                    capturedImg.style.display = 'block';
+                    
+                    // Show results
+                    const resultDiv = document.getElementById('result');
+                    const resultContent = document.getElementById('resultContent');
+                    
+                    resultContent.innerHTML = `
+                        <p><strong>Faces Detected:</strong> ${data.faces_detected}</p>
+                        <p><strong>Face Coordinates:</strong> ${JSON.stringify(data.face_coordinates)}</p>
+                    `;
+                    
+                    resultDiv.style.display = 'block';
+                    
+                    if (data.faces_detected > 0) {
+                        showStatus(`Face detected! Found ${data.faces_detected} face(s) ✅`, 'success');
+                    } else {
+                        showStatus('No faces detected in the image ❌', 'error');
+                    }
+                } else {
+                    showStatus('Failed to capture image ❌', 'error');
+                }
+            } catch (error) {
+                showStatus('Error capturing image: ' + error.message, 'error');
+            }
+        }
+
+        function clearImage() {
+            document.getElementById('capturedImage').style.display = 'none';
+            document.getElementById('result').style.display = 'none';
+            showStatus('Image cleared', 'info');
+        }
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        // Auto-test camera on page load
+        window.onload = function() {
+            setTimeout(testCamera, 1000);
+        };
+    </script>
+</body>
+</html> 
