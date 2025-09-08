@@ -1,21 +1,21 @@
-# 🚀 FacePay Production System
+# FacePay Production System
 
 **High-Performance Face Recognition Payment System**
 
-A production-grade face recognition payment system built with FastAPI, React, WebSockets, and advanced ML models.
+A production-ready face recognition payment system built with FastAPI, React, WebSockets, and advanced ML models.
 
-## ✨ Features
+## Features
 
 ### Backend (FastAPI)
 - **Real-time WebSocket communication** for live face streaming
-- **MediaPipe + FaceNet** for high-accuracy face detection and recognition
+- **MediaPipe + FaceNet** for accurate face detection and recognition
 - **PostgreSQL + Redis** for scalable data storage and caching
 - **Async processing** with thread pools for optimal performance
 - **RESTful API** with comprehensive documentation
 - **Docker containerization** for easy deployment
 
 ### Frontend (React + TypeScript)
-- **Real-time face detection** with WebRTC camera access
+- **Real-time face detection** using WebRTC camera access
 - **WebSocket integration** for live face recognition
 - **Modern UI/UX** with styled-components and animations
 - **PWA support** for mobile-like experience
@@ -28,11 +28,11 @@ A production-grade face recognition payment system built with FastAPI, React, We
 - **Async processing** for non-blocking operations
 - **Docker multi-stage builds** for optimized images
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Backend
 - **FastAPI** - High-performance async web framework
-- **MediaPipe** - Google's face detection (faster than OpenCV)
+- **MediaPipe** - Google's face detection
 - **FaceNet** - State-of-the-art face recognition
 - **PostgreSQL** - Production database
 - **Redis** - Caching and session storage
@@ -47,14 +47,14 @@ A production-grade face recognition payment system built with FastAPI, React, We
 - **WebRTC** - Direct camera access
 - **Axios** - HTTP client
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Development Setup
 
-1. **Clone and setup backend:**
+1. **Clone and set up backend:**
 ```bash
 git clone <repo-url>
-cd facial_recon_payement
+cd facial_recon_payment
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -88,7 +88,7 @@ docker build -t facepay .
 docker run -p 8000:8000 facepay
 ```
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Core API
 - `GET /` - System status and features
@@ -113,7 +113,7 @@ docker run -p 8000:8000 facepay
 ### WebSocket
 - `WS /ws/face-recognition` - Real-time face recognition
 
-## 🎯 Performance Metrics
+## Performance Metrics
 
 - **Face Detection**: < 50ms per frame
 - **Face Recognition**: < 100ms per face
@@ -121,7 +121,7 @@ docker run -p 8000:8000 facepay
 - **API Response Time**: < 200ms
 - **Concurrent Users**: 1000+ (with proper scaling)
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 ```bash
@@ -138,14 +138,14 @@ environment:
   - REDIS_URL=redis://redis:6379
 ```
 
-## 📊 Monitoring
+## Monitoring
 
 - **Health checks** at `/health`
 - **Prometheus metrics** (coming soon)
 - **Structured logging** with structlog
 - **WebSocket connection monitoring**
 
-## 🚀 Future Enhancements
+## Future Enhancements
 
 - [ ] **Liveness detection** to prevent spoofing
 - [ ] **Multi-face support** for group payments
@@ -154,7 +154,8 @@ environment:
 - [ ] **Aadhaar integration** for Indian market
 - [ ] **Advanced analytics** and reporting
 
-## 📈 Project Timeline
+## Project Timeline
+
 - **July 2023**: Initial prototype and basic features
 - **August 2023**: WebSocket integration and real-time processing
 - **September 2023**: Production-grade ML models and performance optimization
@@ -162,7 +163,7 @@ environment:
 - **November 2023**: Docker deployment and scaling
 - **December 2023**: Security enhancements and monitoring
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -170,7 +171,7 @@ environment:
 4. Add tests
 5. Submit a pull request
 
-## 📄 License
+## License
 
 MIT License - see LICENSE file for details
 
