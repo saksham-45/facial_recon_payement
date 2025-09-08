@@ -1,15 +1,44 @@
-# FacePay Dependencies
-# Project started: July 2023
-# Initial setup for FastAPI backend
+# FacePay Production Dependencies
+# High-performance face recognition system
 
+# Core Framework
 fastapi==0.115.0
 uvicorn[standard]==0.30.6
+websockets==15.0.1
+
+# Database & Caching
 SQLAlchemy==2.0.34
+psycopg2-binary==2.9.9
+redis==5.0.1
+alembic==1.13.1
+
+# Computer Vision & ML
+opencv-python==4.10.0.84
+mediapipe==0.10.11
+numpy==1.26.4
+Pillow==10.2.0
+tensorflow==2.15.0
+
+# Face Recognition (Production-grade)
+facenet-pytorch==2.5.3
+torch==2.2.0
+torchvision==0.17.0
+
+# API & Validation
 pydantic==2.8.2
 pydantic-settings==2.4.0
-opencv-python==4.10.0.84
-numpy==1.26.4
-# face_recognition==1.3.0   # add later for face matching
+email-validator==2.2.0
+
+# Security & Auth
 passlib[bcrypt]==1.7.4
+python-jose[cryptography]==3.3.0
 python-multipart==0.0.9
-email-validator==2.2.0 
+
+# Performance & Monitoring
+httpx==0.27.0
+prometheus-client==0.20.0
+structlog==24.1.0
+
+# Development
+pytest==8.2.0
+pytest-asyncio==0.23.5 
